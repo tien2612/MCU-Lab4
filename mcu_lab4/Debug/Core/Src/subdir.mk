@@ -15,7 +15,6 @@ C_SRCS += \
 ../Core/Src/system_stm32f1xx.c \
 ../Core/Src/task.c \
 ../Core/Src/uart_msg.c \
-../Core/Src/wait_for_sleep.c \
 ../Core/Src/watchdog.c 
 
 OBJS += \
@@ -29,7 +28,6 @@ OBJS += \
 ./Core/Src/system_stm32f1xx.o \
 ./Core/Src/task.o \
 ./Core/Src/uart_msg.o \
-./Core/Src/wait_for_sleep.o \
 ./Core/Src/watchdog.o 
 
 C_DEPS += \
@@ -43,7 +41,6 @@ C_DEPS += \
 ./Core/Src/system_stm32f1xx.d \
 ./Core/Src/task.d \
 ./Core/Src/uart_msg.d \
-./Core/Src/wait_for_sleep.d \
 ./Core/Src/watchdog.d 
 
 

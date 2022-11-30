@@ -8,7 +8,6 @@
 "./Core/Src/system_stm32f1xx.o"
 "./Core/Src/task.o"
 "./Core/Src/uart_msg.o"
-"./Core/Src/wait_for_sleep.o"
 "./Core/Src/watchdog.o"
 "./Core/Startup/startup_stm32f103c6ux.o"
 "./Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.o"

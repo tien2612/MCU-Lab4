@@ -27,7 +27,6 @@
 #include "task.h"
 #include "global.h"
 #include "watchdog.h"
-#include "wait_for_sleep.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -116,7 +115,9 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  SCH_Init();
+  //SCH_Init();
+
+
   SCH_Add_Task(&task0, 0, 50);
   SCH_Add_Task(&task1, 3, 100);
   SCH_Add_Task(&task2, 5, 150);
@@ -126,14 +127,15 @@ int main(void)
 
   while (1)
   {
+	  SCH_Dispatch_Tasks();
 	  // turn on LED for indicate when not in sleep mode
 	  HAL_GPIO_WritePin(LED_SLEEP_GPIO_Port, LED_SLEEP_Pin, 0);
-	  Watchdog_Refresh();
-	  SCH_Dispatch_Tasks();
-	  // SCH go to sleep, wait for any interrupt.
-	  SCH_Go_To_Sleep();
-	  // turn of LED for indicate while MCU is sleeping.
-	  HAL_GPIO_WritePin(LED_SLEEP_GPIO_Port, LED_SLEEP_Pin, 1);
+//	  Watchdog_Refresh();
+//
+//	  // SCH go to sleep, wait for any interrupt.
+//	  SCH_Go_To_Sleep();
+//	  // turn of LED for indicate while MCU is sleeping.
+//	  HAL_GPIO_WritePin(LED_SLEEP_GPIO_Port, LED_SLEEP_Pin, 1);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

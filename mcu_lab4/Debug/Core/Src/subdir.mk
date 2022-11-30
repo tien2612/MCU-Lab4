@@ -5,6 +5,7 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Core/Src/global.c \
 ../Core/Src/main.c \
 ../Core/Src/scheduler.c \
 ../Core/Src/stm32f1xx_hal_msp.c \
@@ -12,9 +13,13 @@ C_SRCS += \
 ../Core/Src/syscalls.c \
 ../Core/Src/sysmem.c \
 ../Core/Src/system_stm32f1xx.c \
-../Core/Src/task.c 
+../Core/Src/task.c \
+../Core/Src/uart_msg.c \
+../Core/Src/wait_for_sleep.c \
+../Core/Src/watchdog.c 
 
 OBJS += \
+./Core/Src/global.o \
 ./Core/Src/main.o \
 ./Core/Src/scheduler.o \
 ./Core/Src/stm32f1xx_hal_msp.o \
@@ -22,9 +27,13 @@ OBJS += \
 ./Core/Src/syscalls.o \
 ./Core/Src/sysmem.o \
 ./Core/Src/system_stm32f1xx.o \
-./Core/Src/task.o 
+./Core/Src/task.o \
+./Core/Src/uart_msg.o \
+./Core/Src/wait_for_sleep.o \
+./Core/Src/watchdog.o 
 
 C_DEPS += \
+./Core/Src/global.d \
 ./Core/Src/main.d \
 ./Core/Src/scheduler.d \
 ./Core/Src/stm32f1xx_hal_msp.d \
@@ -32,7 +41,10 @@ C_DEPS += \
 ./Core/Src/syscalls.d \
 ./Core/Src/sysmem.d \
 ./Core/Src/system_stm32f1xx.d \
-./Core/Src/task.d 
+./Core/Src/task.d \
+./Core/Src/uart_msg.d \
+./Core/Src/wait_for_sleep.d \
+./Core/Src/watchdog.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

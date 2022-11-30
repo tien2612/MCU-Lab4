@@ -1,0 +1,4 @@
+watchdog.c:13:6:Watchdog_Refresh	8	static
+watchdog.c:17:15:Is_Watchdog_Reset	4	static
+watchdog.c:24:6:Watchdog_Counting	4	static
+watchdog.c:28:6:Reset_Watchdog_Counting	4	static

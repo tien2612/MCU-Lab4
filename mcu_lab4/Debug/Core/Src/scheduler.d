@@ -1,3 +1,6 @@
-Core/Src/scheduler.o: ../Core/Src/scheduler.c ../Core/Inc/scheduler.h
+Core/Src/scheduler.o: ../Core/Src/scheduler.c ../Core/Inc/scheduler.h \
+ ../Core/Inc/global.h
 
 ../Core/Inc/scheduler.h:
+
+../Core/Inc/global.h:

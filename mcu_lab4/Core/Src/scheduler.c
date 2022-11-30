@@ -10,28 +10,22 @@
 #include <stdio.h>
 
 sTasks SCH_tasks_G[SCH_MAX_TASKS];
-static uint32_t counter_for_watchdog = 0;
 int current_index_task = 0;
 int Error_code_G = 0;
 
 void SCH_Init() {
-	current_index_task = -1;
+	for (int i = 0; i < SCH_MAX_TASKS; i++) {
+		SCH_Delete_Task(i);
+	}
+	Error_code_G = 0;
+	//current_index_task = -1;
 	//Timer_init();
 	//Watchdog_init();
 }
 
-void Shift_Task_To_Left(int index_a, int index_b) {
-	SCH_tasks_G[index_a].pTask = SCH_tasks_G[index_b].pTask;
-	SCH_tasks_G[index_a].Delay = SCH_tasks_G[index_b].Delay;
-	SCH_tasks_G[index_a].Period =  SCH_tasks_G[index_b].Period;
-	SCH_tasks_G[index_a].RunMe = SCH_tasks_G[index_b].RunMe;
-
-	SCH_tasks_G[index_a].TaskID = SCH_tasks_G[index_b].TaskID;
-}
-
-void SCH_Add_Task ( void (*pFunction)() , uint32_t DELAY, uint32_t PERIOD){
+unsigned char SCH_Add_Task ( void (*pFunction)() , uint32_t DELAY, uint32_t PERIOD) {
 	// If user init SCH before, then assign current_index_task to zero (first index)
-	if (current_index_task == -1) current_index_task = 0;
+	unsigned char Return_code;
 
 	if(current_index_task < SCH_MAX_TASKS){
 
@@ -43,21 +37,27 @@ void SCH_Add_Task ( void (*pFunction)() , uint32_t DELAY, uint32_t PERIOD){
 		SCH_tasks_G[current_index_task].TaskID = current_index_task;
 
 		current_index_task++;
+
+		Return_code = RETURN_NORMAL;
+
+	} else {
+		Error_code_G = ERROR_SCH_TOO_MANY_TASKS;
+		Return_code = RETURN_ERROR;
 	}
+
+	return Return_code;
 }
 
 void SCH_Dispatch_Tasks(void) {
 	int i = min_index;
 	// check flag of min_index
-	if (SCH_tasks_G[i].pTask) {
-		if (SCH_tasks_G[i].RunMe > 0) {
-			update_other_tasks();
-			(*SCH_tasks_G[i].pTask)();
-			SCH_tasks_G[i].RunMe--;
-			// If it's one-shot task, remove it form the array
-			if (SCH_tasks_G[i].Period == 0) {
-				SCH_Delete_Task(i);
-			}
+	if (SCH_tasks_G[i].RunMe > 0) {
+		update_other_tasks();
+		(*SCH_tasks_G[i].pTask)();
+		SCH_tasks_G[i].RunMe--;
+		// If it's one-shot task, remove it form the array
+		if (SCH_tasks_G[i].Period == 0) {
+			SCH_Delete_Task(i);
 		}
 	}
 	// Report system status
@@ -86,6 +86,15 @@ void SCH_Update() {
 		 SCH_tasks_G[min_index].Delay =  SCH_tasks_G[min_index].Period;
 		 SCH_tasks_G[min_index].RunMe += 1;
 	}
+}
+
+void Shift_Task_To_Left(int index_a, int index_b) {
+	SCH_tasks_G[index_a].pTask = SCH_tasks_G[index_b].pTask;
+	SCH_tasks_G[index_a].Delay = SCH_tasks_G[index_b].Delay;
+	SCH_tasks_G[index_a].Period =  SCH_tasks_G[index_b].Period;
+	SCH_tasks_G[index_a].RunMe = SCH_tasks_G[index_b].RunMe;
+
+	SCH_tasks_G[index_a].TaskID = SCH_tasks_G[index_b].TaskID;
 }
 
 unsigned char SCH_Delete_Task(uint16_t TASK_INDEX) {

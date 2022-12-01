@@ -130,12 +130,12 @@ int main(void)
 	  SCH_Dispatch_Tasks();
 	  // turn on LED for indicate when not in sleep mode
 	  HAL_GPIO_WritePin(LED_SLEEP_GPIO_Port, LED_SLEEP_Pin, 0);
-//	  Watchdog_Refresh();
-//
-//	  // SCH go to sleep, wait for any interrupt.
-//	  SCH_Go_To_Sleep();
-//	  // turn of LED for indicate while MCU is sleeping.
-//	  HAL_GPIO_WritePin(LED_SLEEP_GPIO_Port, LED_SLEEP_Pin, 1);
+	  Watchdog_Refresh();
+
+	  // SCH go to sleep, wait for any interrupt.
+	  SCH_Go_To_Sleep();
+	  // turn of LED for indicate while MCU is sleeping.
+	  HAL_GPIO_WritePin(LED_SLEEP_GPIO_Port, LED_SLEEP_Pin, 1);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
